@@ -12,7 +12,7 @@ const CategoryNav = () => {
         {categories.map((nav, index) => (
           <NavLink
             key={index}
-            to={`/category${nav.to}`}
+            to={`../category${nav.to}`}
             className={
               "flex flex-row bg-slate-600 rounded-md text-center items-center p-2 hover:bg-slate-600 text-white"
             }
@@ -49,7 +49,7 @@ const CategoryNav = () => {
           <div className={"py-2 flex flex-col gap-2 w-full"}>
             {
             categories.map((nav, index) => (
-              <NavLink to={`/category${nav.to}`} key={index} className={"bg-slate-400 rounded p-1 hover:bg-slate-600 flex flex-row items-center justify-center"} onClick={() => setOpen((open) => !open)}>
+              <NavLink to={`../category${nav.to}`} key={index} className={"bg-slate-400 rounded p-1 hover:bg-slate-600 flex flex-row items-center justify-center"} onClick={() => setOpen((open) => !open)}>
                 <img src={nav.imageLink} alt={nav.category} className={"min-h-12 max-h-12"} />
                 {nav.category}
               </NavLink>
