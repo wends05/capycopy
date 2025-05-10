@@ -14,7 +14,7 @@ const Category = () => {
   const getData = useLoaderData() as Categories
 
   const [Items, setItems] = useState<Categories>(getData)
-  const [error, setError] = useState('')
+  // const [error, setError] = useState('')
 
   const [CategoryData, setCategoryData] = useState<CategoryType>(
     Items[category as string] || {
