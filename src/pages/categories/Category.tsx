@@ -14,6 +14,7 @@ const Category = () => {
   const getData = useLoaderData() as Categories
 
   const [Items, setItems] = useState<Categories>(getData)
+  const [error, setError] = useState('')
 
   const [CategoryData, setCategoryData] = useState<CategoryType>(
     Items[category as string] || {
@@ -104,15 +105,20 @@ const Category = () => {
       <main className="flex flex-col justify-center items-center text-center gap-2 pt-10 pb-20 px-2">
         <h1>{upperCaseTitle(category?.replace(/_/g, ' ') as string)}</h1>
         <div>
+          {/* <p className="text-red-600">Placeholder Error</p> */}
+          <br />
           Budget:{' '}
           <input
             type="number"
-            value={CategoryData.Budget}
+            value={CategoryData.Budget === 0 ? '' : CategoryData.Budget}
             className="input text-center rounded-md w-20 mb-2"
+            placeholder="0"
             onChange={(e) => {
+              const value = parseFloat(e.target.value)
+
               setCategoryData((prev) => ({
                 ...prev,
-                Budget: parseFloat(e.target.value) | 0,
+                Budget: !e.target.value || value < 0 ? 0 : value,
               }))
             }}
           />
