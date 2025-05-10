@@ -1,3 +1,42 @@
+# Testing
+
+This was forked from @wends05 's repo CapyCopy with permission.
+This fork is only for testing purposes only. This project _does_ not utilized a database and relies on _Local Storage_
+![testingscreenshot](image.png)
+
+## Testing Installation
+
+1. clone this repository
+
+```bash
+git clone
+```
+
+2. install the dependencies
+
+```bash
+npm install
+```
+
+3. run the 'development' server first (needed to be running in order for cypress to run tests properly)
+
+```bash
+npm run dev
+```
+
+4. run the cypress test
+
+```bash
+ npm run test:cypress
+```
+
+5. navigate to the e2e and click on 'flow.cy.ts' which covers the major functionality of copycapy
+
+6. test coverage _Please read this_
+
+Anton -> up to the tracker
+Sheena -> (TO DO) Settings
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
