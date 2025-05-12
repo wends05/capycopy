@@ -13,7 +13,6 @@ const Settings = () => {
     localStorage.setItem("Name", JSON.stringify(Name));
   };
 
-
   return (
     <main className={"main gap-2"}>
       <h1>Settings</h1>
@@ -25,6 +24,7 @@ const Settings = () => {
         <input
           className="textinput"
           type="text"
+          data-testid="username"
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setName(e.target.value)
           }
@@ -32,8 +32,10 @@ const Settings = () => {
         />
         <input className="btn" type="submit" value="Set" />
       </Form>
-      <Link to={'../confirmReset'}
-      className="bg-red-600 p-2 text-white rounded-md">
+      <Link
+        to={"../confirmReset"}
+        className="bg-red-600 p-2 text-white rounded-md"
+      >
         Reset Data
       </Link>
     </main>

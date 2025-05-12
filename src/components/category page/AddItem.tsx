@@ -41,6 +41,7 @@ const AddItem = ({ ItemAdded }: { ItemAdded: (e: FormEvent) => void }) => {
           className="p-2 text-md h-8 w-36 rounded-md col-span-2 text-black text-center"
           value={Name}
           onChange={(e) => setName(e.target.value)}
+          data-testid="form-item-name"
         />
       </div>
       <div className={"flex flex-col items-center"}>
@@ -57,6 +58,7 @@ const AddItem = ({ ItemAdded }: { ItemAdded: (e: FormEvent) => void }) => {
           value={Quantity}
           placeholder="1"
           onChange={(e) => setQuantity(parseInt(e.target.value))}
+          data-testid="form-item-quantity"
         />
       </div>
       <div className={"flex flex-col items-center"}>
@@ -74,6 +76,7 @@ const AddItem = ({ ItemAdded }: { ItemAdded: (e: FormEvent) => void }) => {
           placeholder="1"
           step={0.01}
           onChange={(e) => setAmount(parseFloat(e.target.value))}
+          data-testid="form-item-amount"
         />
       </div>
       <div
@@ -93,11 +96,13 @@ const AddItem = ({ ItemAdded }: { ItemAdded: (e: FormEvent) => void }) => {
           name="Total"
           value={Total}
           readOnly={true}
+          data-testid="form-item-total"
         />
       </div>
       <button
         type="submit"
         className="btn col-span-2 mx-10 sm:mx-2 appearance-none"
+        data-testid="form-item-submit"
       >
         Enter
       </button>
