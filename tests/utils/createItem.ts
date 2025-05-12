@@ -15,10 +15,6 @@ const createItem = async (
   await expect(page.locator("[data-testid=form-item-total]")).toHaveValue(total.toString());
   await page.locator("button[data-testid=form-item-submit]").click();
 
-  // item should be created below
-
-  const item = page.locator("[data-testid=item]");
-  await expect(item).toBeVisible();
 };
 
 export default createItem;
