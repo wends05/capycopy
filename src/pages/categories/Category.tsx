@@ -23,15 +23,15 @@ const Category = () => {
     }
   );
 
-  
-  useEffect(()=> {
-    setCategoryData(Items[category as string] || {
-      Items: [],
-      Budget: 1,
-      Total: 0,
-    })
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [category, getData])
+  useEffect(() => {
+    setCategoryData(
+      Items[category as string] || {
+        Items: [],
+        Budget: 1,
+        Total: 0,
+      }
+    );
+  }, [category, getData]);
   useEffect(() => {
     setItems((prevState) => ({
       ...prevState,
@@ -59,23 +59,21 @@ const Category = () => {
         });
       }
 
-      const newItemwithNewId : Item = getNewID(allIDs, newItem as Item);
+      const newItemwithNewId: Item = getNewID(allIDs, newItem as Item);
 
       if (!allIDs.includes(newItemwithNewId.id)) {
         return {
           ...prevState,
           Items: [...prevState.Items, newItemwithNewId],
-          Total: Number(prevState.Total) + Number(newItemwithNewId.Amount)
-        }
+          Total: Number(prevState.Total) + Number(newItemwithNewId.Total),
+        };
       }
 
       return prevState;
     });
-
-
   };
 
-  const edititem = (data: Item) => {
+  const editItem = (data: Item) => {
     setCategoryData((prevState) => {
       const prevItem = prevState.Items.find((item) => item.id === data.id);
 
@@ -96,7 +94,10 @@ const Category = () => {
     setCategoryData((prevState) => ({
       ...prevState,
       Items: prevState.Items.filter((item) => item.id !== data.id),
-      Total: prevState.Total - data.Total,
+      Total: prevState.Items.reduce(
+        (acc: number, item: Item) => acc + item.Total,
+        0
+      ),
     }));
   };
 
@@ -105,19 +106,21 @@ const Category = () => {
       <main className="flex flex-col justify-center items-center text-center gap-2 pt-10 pb-20 px-2">
         <h1>{upperCaseTitle(category?.replace(/_/g, " ") as string)}</h1>
         <div>
-          Budget:{" "}
-          <input
-            type="number"
-            value={CategoryData.Budget}
-            className="input text-center rounded-md w-20 mb-2"
-            onChange={(e) => {
-
-              setCategoryData((prev) => ({
-                ...prev,
-                Budget: parseFloat(e.target.value) | 0,
-              }));
-            }}
-          />
+          <div data-testid="budget">
+            Budget:{" "}
+            <input
+              type="number"
+              value={CategoryData.Budget}
+              data-testid="budget-input"
+              className="input text-center rounded-md w-20 mb-2"
+              onChange={(e) => {
+                setCategoryData((prev) => ({
+                  ...prev,
+                  Budget: parseFloat(e.target.value) | 0,
+                }));
+              }}
+            />
+          </div>
           <AddItem ItemAdded={additem} />
           <p>Total: {CategoryData.Total}</p>
           <p>Difference: {CategoryData.Budget - CategoryData.Total}</p>
@@ -125,7 +128,7 @@ const Category = () => {
         <p>from Items:</p>
         {CategoryData?.Items.map((item: Item) => (
           <ItemDisplay
-            edit={edititem}
+            edit={editItem}
             dlt={deleteItem}
             key={item.id}
             params={item}
