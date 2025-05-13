@@ -3,16 +3,13 @@ import { createStorage } from "@/utils/localStorageHandler";
 import { categories } from "./categories/Outline";
 
 const Home = () => {
-  
-
   createStorage();
 
   const Name = JSON.parse(localStorage.getItem("Name") as string);
 
-  
   return (
     <div className="main gap-10 p-2 relative text-center">
-      <h1>Hello{Name ? (`, ${Name}`): ""}!</h1>
+      <h1>Hello{Name ? `, ${Name}` : ""}!</h1>
       <p>Welcome to your Budget tracker. Pick a category for your expenses.</p>
       <div
         className="
@@ -24,6 +21,7 @@ const Home = () => {
             image={item.imageLink}
             title={item.category}
             to={item.to}
+           
           />
         ))}
       </div>

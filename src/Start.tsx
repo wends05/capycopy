@@ -26,6 +26,7 @@ const Start = () => {
             className={"textinput"}
             name="username"
             value={Name ? Name : ""}
+            data-testid="username"
             onChange={(e) => setName(e.target.value)}
           />
           <button type="submit" className="btn">
