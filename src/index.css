@@ -10,7 +10,7 @@ p {
     @apply text-center
 }
 .main {
-    @apply flex flex-col items-center justify-center min-h-screen;
+    @apply flex flex-col items-center justify-center min-h-screen pb-20;
 }
 
 h1 {
