@@ -223,9 +223,7 @@ test.describe("Category", () => {
             const item1 = page.locator("[data-testid=item]").first();
             await expect(item1).toBeVisible();
             await item1.locator("button[data-testid=edit-item]").click();
-            await item1
-              .locator("[data-testid=item-amount]")
-              .fill("40");
+            await item1.locator("[data-testid=item-amount]").fill("40");
             await item1.locator("button[type=submit]").click();
 
             // test that the total is 140
@@ -236,7 +234,7 @@ test.describe("Category", () => {
             const difference = page.locator("p:has-text('Difference:')");
             await expect(difference).toBeVisible();
             await expect(difference).toHaveText(/Difference: -40/);
-            
+
             // test that the item total is 80
             const itemTotal = item1.locator("[data-testid=item-total]");
             await expect(itemTotal).toBeVisible();
@@ -247,24 +245,153 @@ test.describe("Category", () => {
             await expect(itemAmount).toHaveValue("40");
             // test that the item quantity is 2
             const itemQuantity = item1.locator("[data-testid=item-quantity]");
-            await expect(itemQuantity).toBeVisible(); 
+            await expect(itemQuantity).toBeVisible();
+            await expect(itemQuantity).toHaveValue("2");
           });
 
           test("should update the total and difference value based if item amount decreased", async ({
             page,
-          }) => {});
+          }) => {
+            // Get the first item
+            const item1 = page.locator("[data-testid=item]").first();
+            await expect(item1).toBeVisible();
+            // Click the edit button for the first item
+            await item1.locator("button[data-testid=edit-item]").click();
+            // Decrease the item amount
+            await item1.locator("[data-testid=item-amount]").fill("10");
+            // Submit the changes
+            await item1.locator("button[type=submit]").click();
+
+            // Verify that the total is updated (Original: 2*30 + 3*20 = 120. New: 2*10 + 3*20 = 20 + 60 = 80)
+            const total = page.locator("p:has-text('Total:')");
+            await expect(total).toBeVisible();
+            await expect(total).toHaveText(/Total: 80/);
+            // Verify that the difference is updated (Budget: 100. New Difference: 100 - 80 = 20)
+            const difference = page.locator("p:has-text('Difference:')");
+            await expect(difference).toBeVisible();
+            await expect(difference).toHaveText(/Difference: 20/);
+
+            // Verify that the item total is updated (2 * 10 = 20)
+            const itemTotal = item1.locator("[data-testid=item-total]");
+            await expect(itemTotal).toBeVisible();
+            await expect(itemTotal).toHaveValue("20");
+            // Verify that the item amount is updated
+            const itemAmount = item1.locator("[data-testid=item-amount]");
+            await expect(itemAmount).toBeVisible();
+            await expect(itemAmount).toHaveValue("10");
+            // Verify that the item quantity is updated
+            const itemQuantity = item1.locator("[data-testid=item-quantity]");
+            await expect(itemQuantity).toBeVisible();
+            await expect(itemQuantity).toHaveValue("2");
+          });
 
           test("should update the total and difference value based if item quantity increased", async ({
             page,
-          }) => {});
+          }) => {
+            // Get the first item
+            const item1 = page.locator("[data-testid=item]").first();
+            await expect(item1).toBeVisible();
+            // Click the edit button for the first item
+            await item1.locator("button[data-testid=edit-item]").click();
+            // Increase the item quantity
+            await item1.locator("[data-testid=item-quantity]").fill("3");
+            // Submit the changes
+            await item1.locator("button[type=submit]").click();
+
+            // Verify that the total is updated (Original: 2*30 + 3*20 = 120. New: 3*30 + 3*20 = 90 + 60 = 150)
+            const total = page.locator("p:has-text('Total:')");
+            await expect(total).toBeVisible();
+            await expect(total).toHaveText(/Total: 150/);
+            // Verify that the difference is updated (Budget: 100. New Difference: 100 - 150 = -50)
+            const difference = page.locator("p:has-text('Difference:')");
+            await expect(difference).toBeVisible();
+            await expect(difference).toHaveText(/Difference: -50/);
+
+            // Verify that the item total is updated (3 * 30 = 90)
+            const itemTotal = item1.locator("[data-testid=item-total]");
+            await expect(itemTotal).toBeVisible();
+            await expect(itemTotal).toHaveValue("90");
+            // Verify that the item amount remains the same
+            const itemAmount = item1.locator("[data-testid=item-amount]");
+            await expect(itemAmount).toBeVisible();
+            await expect(itemAmount).toHaveValue("30");
+            // Verify that the item quantity is updated
+            const itemQuantity = item1.locator("[data-testid=item-quantity]");
+            await expect(itemQuantity).toBeVisible();
+            await expect(itemQuantity).toHaveValue("3");
+          });
           test("should update the total and difference value based if item quantity decreased", async ({
             page,
-          }) => {});
+          }) => {
+            // Get the first item
+            const item1 = page.locator("[data-testid=item]").first();
+            await expect(item1).toBeVisible();
+            // Click the edit button for the first item
+            await item1.locator("button[data-testid=edit-item]").click();
+            // Decrease the item quantity
+            await item1.locator("[data-testid=item-quantity]").fill("1");
+            // Submit the changes
+            await item1.locator("button[type=submit]").click();
+
+            // Verify that the total is updated (Original: 2*30 + 3*20 = 120. New: 1*30 + 3*20 = 30 + 60 = 90)
+            const total = page.locator("p:has-text('Total:')");
+            await expect(total).toBeVisible();
+            await expect(total).toHaveText(/Total: 90/);
+            // Verify that the difference is updated (Budget: 100. New Difference: 100 - 90 = 10)
+            const difference = page.locator("p:has-text('Difference:')");
+            await expect(difference).toBeVisible();
+            await expect(difference).toHaveText(/Difference: 10/);
+
+            // Verify that the item total is updated (1 * 30 = 30)
+            const itemTotal = item1.locator("[data-testid=item-total]");
+            await expect(itemTotal).toBeVisible();
+            await expect(itemTotal).toHaveValue("30");
+            // Verify that the item amount remains the same
+            const itemAmount = item1.locator("[data-testid=item-amount]");
+            await expect(itemAmount).toBeVisible();
+            await expect(itemAmount).toHaveValue("30");
+            // Verify that the item quantity is updated
+            const itemQuantity = item1.locator("[data-testid=item-quantity]");
+            await expect(itemQuantity).toBeVisible();
+            await expect(itemQuantity).toHaveValue("1");
+          });
         });
         test.describe("When I delete an item", () => {
+          test.beforeEach("Create an item", async ({ page }) => {
+            await createItem(page, "Test Item 1", 2, 30, 60);
+            await createItem(page, "Test Item 2", 3, 20, 60);
+            // Ensure there are two items initially from the parent describe block
+            await expect(page.locator("[data-testid=item]")).toHaveCount(2);
+          });
           test("should update the total and difference value based on the new item", async ({
             page,
-          }) => {});
+          }) => {
+            // Get the first item
+            const item1 = page.locator("[data-testid=item]").first();
+            await expect(item1).toBeVisible();
+            // Click the delete button for the first item
+            await item1.locator("button[data-testid=delete-item]").click();
+
+            // Handle the confirmation dialog
+            page.on("dialog", async (dialog) => {
+              expect(dialog.message()).toContain(
+                "Are you sure you want to delete this item?"
+              );
+              await dialog.accept();
+            });
+
+            // After deletion, only one item should remain
+            await expect(page.locator("[data-testid=item]")).toHaveCount(1);
+
+            // Verify that the total is updated (Original: 2*30 + 3*20 = 120. After deleting first item (2*30=60): Total = 3*20 = 60)
+            const total = page.locator("p:has-text('Total:')");
+            await expect(total).toBeVisible();
+            await expect(total).toHaveText(/Total: 60/);
+            // Verify that the difference is updated (Budget: 100. New Difference: 100 - 60 = 40)
+            const difference = page.locator("p:has-text('Difference:')");
+            await expect(difference).toBeVisible();
+            await expect(difference).toHaveText(/Difference: 40/);
+          });
         });
       });
     });

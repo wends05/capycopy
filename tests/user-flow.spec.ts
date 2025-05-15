@@ -97,7 +97,7 @@ test.describe("Complete User Flow", () => {
     const updatedTotalExpenses = await page.locator("div.flex.flex-row.items-end.gap-2 p").nth(1).textContent()
 
     expect(Number(updatedTotalBudget)).toBe(1500) 
-    expect(updatedTotalExpenses).toMatch(/^0?650150450$/) 
+    expect(updatedTotalExpenses).toMatch(/1100/) 
 
     await page.getByRole("link", { name: "Settings" }).click()
     await page.getByRole("link", { name: "Reset Data" }).click()

@@ -32,6 +32,7 @@ const Category = () => {
       }
     );
   }, [category, getData]);
+
   useEffect(() => {
     setItems((prevState) => ({
       ...prevState,
@@ -91,14 +92,19 @@ const Category = () => {
   };
 
   const deleteItem = (data: Item) => {
-    setCategoryData((prevState) => ({
-      ...prevState,
-      Items: prevState.Items.filter((item) => item.id !== data.id),
-      Total: prevState.Items.reduce(
-        (acc: number, item: Item) => acc + item.Total,
-        0
-      ),
-    }));
+    setCategoryData((prevState) => {
+      const filteredItems = prevState.Items.filter(
+        (item) => item.id !== data.id
+      );
+      return {
+        ...prevState,
+        Items: filteredItems,
+        Total: filteredItems.reduce(
+          (acc: number, item: Item) => acc + item.Total,
+          0
+        ),
+      };
+    });
   };
 
   return (
@@ -122,7 +128,7 @@ const Category = () => {
             />
           </div>
           <AddItem ItemAdded={additem} />
-          <p>Total: {CategoryData.Total}</p>
+          <p>Total: {Number(CategoryData.Total)}</p>
           <p>Difference: {CategoryData.Budget - CategoryData.Total}</p>
         </div>
         <p>from Items:</p>
